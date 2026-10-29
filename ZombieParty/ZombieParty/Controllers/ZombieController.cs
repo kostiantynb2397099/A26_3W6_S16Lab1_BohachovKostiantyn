@@ -46,7 +46,7 @@ namespace ZombieParty.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upsert([FromServices] IImageFileManager imageFileManager, Zombie zombie)
+        public async Task<IActionResult> Upsert(Zombie zombie)
         {
             if (ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace ZombieParty.Controllers
                 bool edit = zombie.Id != 0;
                 string? oldImagePath = zombie.Image;
 
-                zombie.Image = imageFileManager.UploadImage(form, edit, oldImagePath);
+                zombie.Image = _imageFileManager.UploadImage(form, edit, oldImagePath);
                 // Début du code qui doit être déplacer dans ImageFileManager
                 
                 // Fin du code qui doit être déplacer dans ImageFileManager
